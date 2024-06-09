@@ -1,0 +1,6 @@
+sabse phele ye dekhna hai ki data konsa longe agar koi chiz develop karni hai to dekhna hai ki data kons konsa add hoga nhi to dikkat aa kati hai or agar koi kam k liye bole data phele dekho nhi 
+to agar phele page bna diya or baad me bole ki isme ye add hona extra karde to firse likhna padega 
+
+konse konse data points liye jayege kaise store kra jayega kis tra se sara kam hoga sabse phele ye dekho 
+
+jab aap mongoose se schema banate hai or usko name deta hai to jab vo database mondoDb me store krta hai to uska name samll letter or plural ho jata hai 
