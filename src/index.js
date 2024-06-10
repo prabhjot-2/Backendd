@@ -7,6 +7,16 @@ dotenv.config({
     path: './env'
 })
 connectDB()
+.then(()=>{
+    app.listen(process.env.PORT || 8000, ()=>{
+        console.log(`Server is running at port : ${process.env.PORT}`);
+    })// e best practice haigu j asi server production ch code push karta te us to bachai gayi k port available nhi te 8000 te run kar do
+
+
+})
+.catch((err)=>{
+    console.log("mongo Db connection failed !!!", err);
+})
 
 
 
