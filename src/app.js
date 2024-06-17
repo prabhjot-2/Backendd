@@ -15,7 +15,12 @@ app.use(express.urlencoded({extended: true , limit:"16kb"}))// e kita ki url nnu
 app.use(express.static("public"))// e ta rakhida jo ki koi asset rakhna hove oo public ch rakh skde jive favicomn pdf 
 app.use(cookieParser())// e ki karda jo mera server us to user de browser di cookie access kar pau or uski cookie set kar pau means CRUD operation use kar pau
 
+//routesimport
+import userRouter from './routes/user.routes.js'
 
+
+//routes declaration
+app.use("/users", userRouter)// eda hi likhna painda j apa koi file to lai k ande is liye middleware use kita 
 
 
 export {app}
