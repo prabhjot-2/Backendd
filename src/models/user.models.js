@@ -59,7 +59,7 @@ const userSchema =new Schema({
 userSchema.pre("save", async function (next) {// async is liye lita kyuki inu run hon ch time lagda bhut 
     if(!this.isModified("password")) return next();// e ta lagaya kyu ki j modified hoga pass word fer hi run krna enu j nhi kita eda te har vari run hon te e password change karda ravega
 
-    this.password= bcrypt.hash(this.password,10)// e is liye use hoi isne eda password  ch thora change kita onu crypt krta hash value lga ti 
+    this.password= await bcrypt.hash(this.password,10)// e is liye use hoi isne eda password  ch thora change kita onu crypt krta hash value lga ti 
 
 })
 
