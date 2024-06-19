@@ -29,7 +29,7 @@ const registerUser=asyncHandler(async(req,res)=>{
         
     }
 
-    const exxistedUser=User.findOne({
+    const exxistedUser= await User.findOne({
         $or: [{username},{email}]
     })// ede nal one user model ch find krna ki username te emial nal user hai te $ nal ik to vaad entry nal vekh skde nhi te single user hunde 
 
@@ -38,7 +38,12 @@ const registerUser=asyncHandler(async(req,res)=>{
     }
 
     const avatarlocalath=req.files?.avatar[0]?.path// is nal o multer to path lai lainda oda te local ch sAVE ho janda
-    const coverImageLocalPath=req.files?.coverImage[0]?.path;
+    // const coverImageLocalPath=req.files?.coverImage[0]?.path;
+
+    let coverImageLocalPath
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length>0){
+        coverImageLocalPath=req.files.coverImage[0].path
+    }
 
     if(!avatarlocalath)
         throw new apiError(400,"avatar file is required")

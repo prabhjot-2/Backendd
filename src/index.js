@@ -2,9 +2,10 @@
 // asal ch enu apa import c kar skde hai par oo thoda code change karna painda package.json ch 
 import dotenv from "dotenv"
 import connectDB from "./db/index.js";
+import {app} from './app.js'
 
 dotenv.config({
-    path: './env'
+    path: './.env'
 })
 connectDB()
 .then(()=>{
