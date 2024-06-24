@@ -419,6 +419,61 @@ const getUserChannelProfile= asyncHandler(async(req, res)=>{
 })
 
 
+const getWatchHistory= asyncHandler(async(req, res)=>{
+    const user= await User.aggregate([
+        {
+            $match:{
+                _id: new mongoose.Types.ObjedId(req.user._id)// eme mongoose di object Id bna ki jo req.user_id likhya e string dinda te mongoose ch e object Id vich likhya hunda is tra mongoose di id bna k send kari di
+
+            }
+        },
+        {
+            $lookup:{
+                from:"videos",
+                localField:"watchHistory",
+                foreignField:"_id",
+                as:"watchHistory",
+                pipeline:[// subpipeline
+                    {
+                        $lookup:{
+                            from:"users",
+                            localField:"owner",
+                            foreignField:"_id",
+                            as:"owner",
+                            pipeline:[// is de ander pipeline lagan nal jhedi project nal dssa ge kheri kheri field leni ohde ander hi kam kar dinda fer o
+                                {
+                                    $project:{
+                                        fullName:1,
+                                        username:1,
+                                        avatar:1
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        $addFields:{// is new pipe line nal frontedn vale nu diff kam hovegi te e sidha onu owner de duge te oo asani nal use kar skda fer ona nu 
+                            owner:{
+                                $first:"$owner"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ])
+
+    return res
+    .status(200)
+    .json(
+        new apiResponse(200, user[0].watchHistory,"watch history fetched successfully ")
+    )
+})
+
+
+
+
+
 export {
     registerUser,
     loginUser,
@@ -429,5 +484,6 @@ export {
     updateAccountDetails,
     updateUserAvatar,
     updateUserCoverImage,
-    getUserChannelProfile
+    getUserChannelProfile,
+    getWatchHistory
 }
